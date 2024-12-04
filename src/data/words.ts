@@ -122,5 +122,4 @@ export const vocabularyWords: Word[] = [
   { unit: "U15-D1", term: "Soviet", definition: "related to the former Soviet Union" },
   { unit: "U15-D1", term: "Embodiment", definition: "a tangible or visible representation of an idea" },
   { unit: "U15-D1", term: "Entail", definition: "involve or require something as a necessary consequence" }
-];
-
+]
