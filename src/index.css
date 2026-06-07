@@ -1,3 +1,141 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    /* 60% Dominant Neutral - Slate with Indigo Tint */
+    --color-bg-app: hsl(226, 30%, 97%);
+    --color-bg-card: hsl(0, 0%, 100%);
+    --color-text-primary: hsl(226, 50%, 13%);
+    --color-text-secondary: hsl(226, 16%, 45%);
+    --color-text-tertiary: hsl(226, 16%, 60%);
+    --color-border: hsl(226, 20%, 90%);
+    
+    /* 30% Secondary - Cool Indigo / Slate shades */
+    --color-secondary-bg: hsl(226, 30%, 93%);
+    --color-secondary-hover: hsl(226, 30%, 90%);
+    
+    /* 10% Accent - Radiant Indigo & Semantic Colors */
+    --color-accent: hsl(239, 84%, 60%);
+    --color-accent-hover: hsl(239, 84%, 65%);
+    --color-accent-active: hsl(239, 84%, 54%);
+    --color-accent-light: hsl(239, 84%, 95%);
+    
+    /* Semantic Colors */
+    --color-success: hsl(142, 76%, 36%);
+    --color-success-bg: hsl(142, 76%, 95%);
+    --color-danger: hsl(350, 89%, 48%);
+    --color-danger-bg: hsl(350, 89%, 96%);
+    --color-warning: hsl(45, 93%, 47%);
+    --color-warning-bg: hsl(45, 93%, 94%);
+    
+    /* Glassmorphism */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.4);
+  }
+
+  .dark {
+    /* 60% Dominant Neutral - Deep Slate */
+    --color-bg-app: hsl(222, 47%, 9%);
+    --color-bg-card: hsl(222, 47%, 14%); /* Lighter than background to imply depth instead of shadows */
+    --color-text-primary: hsl(210, 40%, 98%);
+    --color-text-secondary: hsl(215, 20%, 70%);
+    --color-text-tertiary: hsl(215, 16%, 50%);
+    --color-border: hsl(222, 25%, 22%);
+    
+    /* 30% Secondary */
+    --color-secondary-bg: hsl(222, 47%, 18%);
+    --color-secondary-hover: hsl(222, 47%, 22%);
+    
+    /* 10% Accent */
+    --color-accent: hsl(239, 90%, 72%);
+    --color-accent-hover: hsl(239, 90%, 77%);
+    --color-accent-active: hsl(239, 90%, 67%);
+    --color-accent-light: hsl(239, 90%, 18%);
+    
+    /* Semantic Colors */
+    --color-success: hsl(142, 70%, 50%);
+    --color-success-bg: hsl(142, 70%, 12%);
+    --color-danger: hsl(350, 89%, 60%);
+    --color-danger-bg: hsl(350, 89%, 15%);
+    --color-warning: hsl(45, 93%, 60%);
+    --color-warning-bg: hsl(45, 93%, 14%);
+    
+    /* Glassmorphism */
+    --glass-bg: rgba(30, 41, 59, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.05);
+  }
+
+  body {
+    background-color: var(--color-bg-app);
+    color: var(--color-text-primary);
+    font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    overflow-x: hidden;
+  }
+
+  /* Custom Scrollbar for Premium Feel */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-tertiary);
+  }
+}
+
+/* Custom interactive state helpers */
+.btn-accent {
+  background-color: var(--color-accent);
+  color: #ffffff;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-accent:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+}
+.btn-accent:active:not(:disabled) {
+  background-color: var(--color-accent-active);
+  transform: translateY(0);
+}
+.btn-accent:disabled {
+  background-color: var(--color-accent-light);
+  color: var(--color-text-tertiary);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary-bg);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--color-secondary-hover);
+  border-color: var(--color-text-tertiary);
+}
+.btn-secondary:active:not(:disabled) {
+  background-color: var(--color-border);
+}
+.btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Glass card styling */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}

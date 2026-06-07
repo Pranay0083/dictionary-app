@@ -11,30 +11,31 @@ interface TestReviewProps {
 
 export function TestReview({ testWords, userAnswers, onComplete }: TestReviewProps) {
   const getScoreIcon = (isCorrect: boolean, skipped: boolean) => {
-    if (skipped) return <MinusCircle className="w-6 h-6 text-gray-500" />;
+    if (skipped) return <MinusCircle className="w-5 h-5 text-[var(--color-text-tertiary)]" />;
     return isCorrect ? (
-      <Check className="w-6 h-6 text-green-500" />
+      <Check className="w-5 h-5 text-[var(--color-success)]" />
     ) : (
-      <X className="w-6 h-6 text-red-500" />
+      <X className="w-5 h-5 text-[var(--color-danger)]" />
     );
   };
 
   return (
     <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="w-full max-w-3xl mx-auto p-4 sm:p-6"
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="w-full max-w-3xl mx-auto space-y-6"
     >
-      <div className="bg-white rounded-lg shadow-md p-4 sm:p-6">
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-2xl font-bold text-gray-800 mb-6"
-        >
-          Review Your Answers
-        </motion.h2>
+      <div className="bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-2xl p-6 shadow-sm">
+        <div className="border-b border-[var(--color-border)] pb-4 mb-6">
+          <h2 className="text-xl font-bold text-[var(--color-text-primary)]">
+            Review Your Answers
+          </h2>
+          <p className="text-xs text-[var(--color-text-secondary)]">
+            Double-check your choices before submitting the final score.
+          </p>
+        </div>
         
-        <div className="space-y-4 sm:space-y-6">
+        <div className="space-y-4">
           {testWords.map((word, index) => {
             const userAnswer = userAnswers[index];
             const isSkipped = userAnswer === '';
@@ -43,76 +44,62 @@ export function TestReview({ testWords, userAnswers, onComplete }: TestReviewPro
             return (
               <motion.div 
                 key={index}
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className={`p-4 rounded-lg border ${
+                transition={{ delay: index * 0.05 }}
+                className={`p-4 rounded-xl border transition-colors ${
                   isSkipped
-                    ? 'border-gray-200 bg-gray-50'
+                    ? 'border-[var(--color-border)] bg-[var(--color-secondary-bg)]/40'
                     : isCorrect
-                    ? 'border-green-200 bg-green-50'
-                    : 'border-red-200 bg-red-50'
+                    ? 'border-[var(--color-success)]/20 bg-[var(--color-success-bg)]/30 text-[var(--color-text-primary)]'
+                    : 'border-[var(--color-danger)]/20 bg-[var(--color-danger-bg)]/30 text-[var(--color-text-primary)]'
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-gray-500">Question {index + 1}</span>
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: index * 0.1 + 0.3 }}
-                  >
+                  <span className="text-[10px] uppercase font-bold text-[var(--color-text-tertiary)] tracking-wider">
+                    Question {index + 1}
+                  </span>
+                  <div className="flex items-center gap-1.5 font-bold text-xs">
                     {getScoreIcon(isCorrect, isSkipped)}
-                  </motion.div>
+                    <span className={isSkipped ? 'text-[var(--color-text-secondary)]' : isCorrect ? 'text-[var(--color-success)]' : 'text-[var(--color-danger)]'}>
+                      {isSkipped ? 'Skipped' : isCorrect ? 'Correct' : 'Incorrect'}
+                    </span>
+                  </div>
                 </div>
                 
-                <h3 className="text-lg font-semibold text-gray-800 mb-3">
+                <h3 className="text-base font-bold text-[var(--color-text-primary)] mb-2">
                   {word.term}
                 </h3>
-
-                <motion.div 
-                  className="space-y-2"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: index * 0.1 + 0.2 }}
-                >
+                
+                <div className="space-y-1 text-xs">
                   {!isSkipped && (
-                    <div className="flex flex-col sm:flex-row sm:items-start gap-2">
-                      <span className="text-gray-600 min-w-[100px]">Your answer:</span>
-                      <span className={isCorrect ? 'text-green-600' : 'text-red-600'}>
+                    <div className="flex flex-col sm:flex-row sm:items-start gap-1">
+                      <span className="text-[var(--color-text-secondary)] min-w-[100px] font-semibold">Your choice:</span>
+                      <span className={isCorrect ? 'text-[var(--color-success)] font-medium' : 'text-[var(--color-danger)] font-medium'}>
                         {userAnswer}
                       </span>
                     </div>
                   )}
                   
                   {(isSkipped || !isCorrect) && (
-                    <div className="flex flex-col sm:flex-row sm:items-start gap-2">
-                      <span className="text-gray-600 min-w-[100px]">Correct answer:</span>
-                      <span className="text-green-600">{word.definition}</span>
+                    <div className="flex flex-col sm:flex-row sm:items-start gap-1">
+                      <span className="text-[var(--color-text-secondary)] min-w-[100px] font-semibold">Definition:</span>
+                      <span className="text-[var(--color-success)] font-medium">{word.definition}</span>
                     </div>
                   )}
-
-                  {isSkipped && (
-                    <div className="text-gray-500 italic mt-2">Question skipped</div>
-                  )}
-                </motion.div>
+                </div>
               </motion.div>
             );
           })}
         </div>
 
-        <motion.button
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1 }}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+        <button
           onClick={onComplete}
-          className="mt-8 w-full flex items-center justify-center gap-2 bg-indigo-600 
-                   text-white py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors"
+          className="mt-6 w-full btn-accent py-3 px-6 rounded-xl flex items-center justify-center gap-2 font-semibold text-sm"
         >
-          <span>See Final Score</span>
-          <ArrowRight className="w-5 h-5" />
-        </motion.button>
+          <span>Calculate Final Score</span>
+          <ArrowRight className="w-4 h-4" />
+        </button>
       </div>
     </motion.div>
   );

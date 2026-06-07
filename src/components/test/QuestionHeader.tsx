@@ -10,41 +10,42 @@ export function QuestionHeader({ currentQuestion, term }: QuestionHeaderProps) {
   const progress = ((currentQuestion + 1) / 10) * 100;
 
   return (
-    <div className="mb-6">
+    <div className="mb-6 space-y-4">
       <div className="flex flex-col gap-2">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider">
           <motion.span
             key={`progress-${currentQuestion}`}
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -5 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-sm font-medium text-gray-500"
+            className="text-[var(--color-text-tertiary)]"
           >
             Question {currentQuestion + 1} of 10
           </motion.span>
-          <span className="text-sm font-medium text-indigo-600">
+          <span className="text-[var(--color-accent)]">
             {progress}% Complete
           </span>
         </div>
         
-        <div className="w-full bg-gray-200 rounded-full h-2">
+        {/* Progress Bar container */}
+        <div className="w-full bg-[var(--color-secondary-bg)] rounded-full h-2.5 overflow-hidden">
           <motion.div
-            className="bg-indigo-600 h-2 rounded-full"
+            className="bg-[var(--color-accent)] h-full rounded-full"
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
           />
         </div>
       </div>
 
       <motion.div
         key={`question-${currentQuestion}`}
-        initial={{ opacity: 0, x: -20 }}
+        initial={{ opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.2 }}
-        className="mt-4"
+        transition={{ delay: 0.1 }}
+        className="pt-2"
       >
-        <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
-          What is the definition of <span className="text-indigo-600">"{term}"</span>?
+        <h2 className="text-xl sm:text-2xl font-extrabold text-[var(--color-text-primary)] leading-tight">
+          What is the definition of <span className="text-[var(--color-accent)]">"{term}"</span>?
         </h2>
       </motion.div>
     </div>

@@ -19,36 +19,30 @@ export function TestControls({
   onSkip,
 }: TestControlsProps) {
   return (
-    <div className="space-y-2 mt-6">
-      <div className="grid grid-cols-2 gap-2">
+    <div className="space-y-3 mt-6">
+      <div className="grid grid-cols-2 gap-3">
         <button
           onClick={onPrevious}
           disabled={currentQuestion === 0}
-          className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg
-                   bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors
-                   disabled:opacity-50 disabled:cursor-not-allowed"
+          className="btn-secondary flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span className="hidden sm:inline">Previous</span>
+          <span>Previous</span>
         </button>
         <button
           onClick={onNext}
           disabled={!selectedAnswer}
-          className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg
-                   bg-indigo-600 text-white hover:bg-indigo-700 transition-colors
-                   disabled:opacity-50 disabled:cursor-not-allowed"
+          className="btn-accent flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold"
         >
-          <span>{isLastQuestion ? 'Finish' : 'Next'}</span>
+          <span>{isLastQuestion ? 'Review Answers' : 'Next'}</span>
           <ArrowRight className="w-4 h-4" />
         </button>
       </div>
       <button
         onClick={onSkip}
-        className="w-full flex items-center justify-center gap-2 py-2 px-4
-                 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200
-                 transition-colors"
+        className="w-full flex items-center justify-center gap-2 py-2.5 px-4 text-xs font-bold bg-transparent text-[var(--color-text-secondary)] border border-dashed border-[var(--color-border)] rounded-xl hover:bg-[var(--color-secondary-bg)] hover:text-[var(--color-text-primary)] transition-all"
       >
-        <SkipForward className="w-4 h-4" />
+        <SkipForward className="w-3.5 h-3.5" />
         <span>Skip Question</span>
       </button>
     </div>
